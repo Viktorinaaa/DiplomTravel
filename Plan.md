@@ -61,7 +61,7 @@
       * Оплата по дебетовой карте - order_entity  и payment_entity;
       * Оплата с помощью кредита - credit_request_entity и order_entity.
    
-      Карта DECLINED: в СУБД появляются записи о созданных операциях в таблице payment_entity.
+      Карта DECLINED: в СУБД появляются записи о созданных операциях в таблице payment_entity, credit_request_entity и order_entity
 
 #### Покупка тура по дебетовой карте и с помощью кредита:
 5. Оплата тура с незаполненными полями.
