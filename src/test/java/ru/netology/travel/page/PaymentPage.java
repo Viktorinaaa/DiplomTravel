@@ -30,11 +30,12 @@ public class PaymentPage {
         cvc.shouldBe(visible);
         buttonContinuePay.get(2).shouldBe(visible);
     }
-/*
-    public NotificationPay(){
-        notificationTitle.shouldHave(text("Успешно"));//text("Успешно"));
-                //(exactText("Успешно"));
-    }*/
+
+    public PaymentPage notificationPay(){
+        notificationTitle.get(0).shouldHave(exactText("Успешно"));
+        notificationContent.get(0).shouldHave(exactText("Операция одобрена Банком."));
+        return new PaymentPage();
+    }
 
     ///////////оплата по карте Approved///////////
     public PaymentPage payApproved(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid){

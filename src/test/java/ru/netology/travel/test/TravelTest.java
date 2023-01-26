@@ -32,8 +32,8 @@ public class TravelTest {
         var paymentPage = mainPage.transferPay();
         var payNumberCardApproved = DataHelper.getInfoCardApproved();
         var payValuesCardApproved = DataHelper.getInfoValid();
-        var paymentInfoApproved = paymentPage.payApproved(payNumberCardApproved,payValuesCardApproved);
-
+        var payInfoApproved = paymentPage.payApproved(payNumberCardApproved,payValuesCardApproved);
+        var payNotification = paymentPage.notificationPay();
     }
 
 
