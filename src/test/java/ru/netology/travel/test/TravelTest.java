@@ -34,10 +34,7 @@ public class TravelTest {
         var payValuesCardApproved = DataHelper.getInfoValid();
         var paymentInfoApproved = paymentPage.payApproved(payNumberCardApproved,payValuesCardApproved);
 
-
     }
-
-
 
 
 
