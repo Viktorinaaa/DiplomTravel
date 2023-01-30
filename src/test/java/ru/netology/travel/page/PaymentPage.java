@@ -59,5 +59,4 @@ public class PaymentPage {
         return new PaymentPage();
     }
 
-
 }
