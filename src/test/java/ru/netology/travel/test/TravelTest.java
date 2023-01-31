@@ -12,13 +12,13 @@ import ru.netology.travel.data.TablesSQL.OrderEntity;
 import ru.netology.travel.page.MainPage;
 
 import java.sql.DriverManager;
+import java.time.Duration;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Condition.appear;
+import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TravelTest {
-
 
 /*
     @BeforeEach
@@ -47,9 +47,9 @@ public class TravelTest {
 
     /////валидная оплата по карте Approved/////////
     @Test
-    @SneakyThrows
+    //@SneakyThrows
     void shouldValidTransferPayApproved(){
-        var conn = DataHelperSQL.getOrderEntity();
+               //var conn = DataHelperSQL.getOrderEntity();
         var mainPage = open("http://localhost:8080/", MainPage.class);
         var paymentPage = mainPage.transferPay();
         var payNumberCardApproved = DataHelper.getInfoCardApproved();
@@ -58,5 +58,5 @@ public class TravelTest {
         paymentPage.notificationPay();
 
     }
-    
+
 }
