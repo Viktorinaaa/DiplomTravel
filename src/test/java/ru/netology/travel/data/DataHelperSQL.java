@@ -13,34 +13,22 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 
-
 public class DataHelperSQL {
-    private DataHelperSQL(){}
+    private DataHelperSQL() {
+    }
 
     ////ИСПОЛНИТЕЛЬ ЗАПРОСОВ///////
     private static QueryRunner runner = new QueryRunner();
 
 
-    //////УСТАНОВКА СОЕДИНЕНИЯ//////
-   /* @SneakyThrows
-    public static Connection getConnection(){
-            var url = System.getProperty("db.url");
-            var username = System.getProperty("db.user");
-            var password = System.getProperty("db.password");
-            try(
-                    var conn = DriverManager.getConnection(url, username, password
-                    );
-
-    }*/
     @SneakyThrows
-    public static Connection getConnection(){
+    public static Connection getConnection() {
         var url = System.getProperty("db.url");
         var username = System.getProperty("db.user");
         var password = System.getProperty("db.password");
         Connection conn = DriverManager.getConnection(url, username, password);
         return conn;
     }
-
 
 
     /////ПОЛУЧЕНИЕ ПОСЛЕДНЕЙ ЗАПИСИ В OrderEntity///////////
@@ -85,10 +73,6 @@ public class DataHelperSQL {
             return (CreditRequestEntity) lastCreditEntity;
         }
     }
-
-
-
-
 
 
 }

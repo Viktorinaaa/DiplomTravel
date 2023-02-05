@@ -1,6 +1,8 @@
 package ru.netology.travel.page;
+
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.visible;
 
@@ -11,19 +13,19 @@ public class MainPage {
     private SelenideElement buttonPay = $x("//*[text()='Купить']");
     private SelenideElement buttonCredit = $x("//*[text()='Купить в кредит']");
 
-    public MainPage(){
+    public MainPage() {
         buttonPay.shouldBe(visible);
         buttonCredit.shouldBe(visible);
     }
 
     /////По карте////////////////
-    public PaymentPage transferPay(){
+    public PaymentPage transferPay() {
         buttonPay.click();
         return new PaymentPage();
     }
 
     //////Кредит/////////
-    public CreditPage transferCredit(){
+    public CreditPage transferCredit() {
         buttonCredit.click();
         return new CreditPage();
     }
