@@ -15,25 +15,36 @@
 - Docker
 
 
-#### Настройка и запуск автотестов
+#### Настройка и запуск автотестов для MYSQL
 1. Настроить контейнер MYSQL в docker-compose.
-2. Настроить контейнер POSTGRESQL в docker-compose.
-3. Настроить контейнер NODE в Dockerfile.
-4. Запустить в терминале контейнеры командой:
+2. Настроить контейнер NODE в Dockerfile.
+3. Запустить в терминале контейнеры командой:
 
    `docker-compose up --build`
-5. Запустить в терминале приложение с указанием пути к базе данных mysql:
+
+4. Запустить в терминале приложение с указанием пути к базе данных mysql:
 
    `java "-Dspring.datasource.url=jdbc:mysql://localhost:3306/app" -jar artifacts/aqa-shop.jar`
-6. Запустить в терминале приложение с указанием пути к базе данных postgresql:
 
-   `java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app" -jar artifacts/aqa-shop.jar`
-7. Запустить в терминале автотесты с указанием пути к базе данных mysql:
+5. Запустить в терминале автотесты с указанием пути к базе данных mysql:
 
    `./gradlew clean test "-Ddb.url=jdbc:mysql://localhost:3306/app"`
-8. Запустить в терминале автотесты с указанием пути к базе данных postgresql:
+
+#### Настройка и запуск автотестов для POSTGRESQL
+1. Настроить контейнер POSTGRESQL в docker-compose.
+2. Настроить контейнер NODE в Dockerfile.
+3. Запустить в терминале контейнеры командой:
+
+   `docker-compose up --build`
+
+4. Запустить в терминале приложение с указанием пути к базе данных postgresql:
+
+   `java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app" -jar artifacts/aqa-shop.jar`
+
+5. Запустить в терминале автотесты с указанием пути к базе данных postgresql:
 
    `./gradlew clean test "-Ddb.url=jdbc:postgresql://localhost:5432/app"`
+
 
 #### Документация
 
