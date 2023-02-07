@@ -25,6 +25,27 @@ public class DataHelper {
         private String cvc;
     }
 
+    public static InfoCard getNumberCardEmpty() {
+        return new InfoCard(null, getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
+    }
+    public static InfoCard getMonthEmpty() {
+        return new InfoCard(getInfoNumberCardApproved(), null, getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
+    }
+    public static InfoCard getNameEmpty() {
+        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), null, getYearValid().getYear(), getCvcValid().getCvc());
+    }
+    public static InfoCard getYearEmpty() {
+        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), null, getCvcValid().getCvc());
+    }
+
+    public static InfoCard getCvcEmpty() {
+        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), null);
+    }
+
+    public static InfoCard getEmpty() {
+        return new InfoCard(null, null, null, null, null);
+    }
+
     public static String getInfoNumberCardApproved() {
 
         String infoCardApproved = null;
