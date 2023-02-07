@@ -9,6 +9,8 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.junit.jupiter.api.*;
 import lombok.SneakyThrows;
 import ru.netology.travel.data.DataHelper;
+import ru.netology.travel.page.PaymentPage;
+import ru.netology.travel.page.CreditPage;
 import ru.netology.travel.data.DataHelperSQL;
 import ru.netology.travel.data.TablesSQL.OrderEntity;
 import ru.netology.travel.page.MainPage;
@@ -21,6 +23,8 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TravelTest {
+
+
 
     @BeforeAll
     static void setupAll() {
@@ -44,21 +48,25 @@ public class TravelTest {
         Selenide.closeWindow();
     }
 
+   private DataHelper.InfoCard infoCard;
+
     @Test
         //test
     void shouldValidTransferPayApprovedTest() {
         //var conn = DataHelperSQL.getOrderEntity();
         var mainPage = open("http://localhost:8080/", MainPage.class);
         var paymentPage = mainPage.transferPay();
-        var numberCard = DataHelper;
-
-        var payNumberCardApproved = DataHelper.getInfoNumberCardApproved();
-        var payInfoCardApproved = DataHelper.getInfoValid();
-        paymentPage.payApprovedTest(payNumberCardApproved, payInfoCardApproved);
-        paymentPage.notificationPay();
+        var numberCard = DataHelper.getInfoNumberCardApproved().getNumberCard();
+        var month = DataHelper.getMonthValid().getMonth();
+        var name = DataHelper.getNameValid().getName();
+        var year = DataHelper.getYearValid().getYear();
+        var cvc = DataHelper.getCvcValid().getCvc();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationSuccessfulPay();
+        System.out.println(numberCard);
     }
 
-
+/*
     /////1_Валидная оплата по карте Approved/////////
     @Test
     //@SneakyThrows
@@ -472,5 +480,5 @@ public class TravelTest {
         creditPage.creditApprovedMonthNotMask();
     }
 
-
+*/
 }

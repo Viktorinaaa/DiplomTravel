@@ -58,8 +58,7 @@ public class DataHelper {
     }
 */
     public static InfoCard getInfoNumberCardApproved() {
-    //String infoCardApproved = null;
-    return new InfoCard("4444 4444 4444 4441", getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
+    return new InfoCard(null, getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
     }
 
     public static InfoCard getInfoNumberCardDeclined() {
