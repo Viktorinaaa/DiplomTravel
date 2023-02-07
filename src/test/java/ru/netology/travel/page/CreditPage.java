@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class CreditPage {
-    private SelenideElement number = $x("//input[@placeholder='0000 0000 0000 0000']");
+    private SelenideElement numberCard = $x("//input[@placeholder='0000 0000 0000 0000']");
     private SelenideElement month = $x("//input[@placeholder='08']");
     private SelenideElement name = $x("//*[text()='Владелец']/following-sibling::span/input");
     private SelenideElement year = $x("//*[text()='Год']/following-sibling::span/input");
@@ -22,28 +22,30 @@ public class CreditPage {
     private ElementsCollection notificationTitle = $$(".notification__title");
     private ElementsCollection notificationContent = $$(".notification__content");
 
-    private SelenideElement invalidYear = $x("//*[text()='Истёк срок действия карты']");
-    private SelenideElement invalidName = $x("//*[text()='Поле обязательно для заполнения']");
-    private SelenideElement invalidMonth = $x("//*[text()='Неверно указан срок действия карты']");
-    private SelenideElement numberCardNotMask = $x("//*[text()='Неверный формат']");
-    private SelenideElement cvcNotMask = $x("//*[text()='Неверный формат']");
-    private SelenideElement numberCardEmpty = $x("//*[text()='Неверный формат']");
-    private SelenideElement monthEmpty = $x("//*[text()='Неверный формат']");
-    private SelenideElement nameEmpty = $x("//*[text()='Поле обязательно для заполнения']");
-    private SelenideElement yearEmpty = $x("//*[text()='Неверный формат']");
-    private SelenideElement cvcEmpty = $x("//*[text()='Неверный формат']");
-    private SelenideElement monthNull = $x("//*[text()='Неверно указан срок действия карты']");
-    private SelenideElement monthRu = $x("//*[text()='Неверный формат']");
-    private SelenideElement yearNull = $x("//*[text()='Истёк срок действия карты']");
-    private SelenideElement monthNotMask = $x("//*[text()='Неверный формат']");
+    private SelenideElement notificationCardExpiryDate = $x("//*[text()='Истёк срок действия карты']");
+    private SelenideElement notificationObligatoryField = $x("//*[text()='Поле обязательно для заполнения']");
+    private SelenideElement notificationInvalidCardExpirationDate = $x("//*[text()='Неверно указан срок действия карты']");
+    private SelenideElement notificationInvalidFormat = $x("//*[text()='Неверный формат']");
 
     public CreditPage() {
-        number.shouldBe(visible);
+        numberCard.shouldBe(visible);
         month.shouldBe(visible);
         name.shouldBe(visible);
         year.shouldBe(visible);
         cvc.shouldBe(visible);
         buttonContinuePay.get(2).shouldBe(visible);
+    }
+
+    ///Запись в форму///
+    public CreditPage creditWriteInForm(DataHelper.InfoCard infoCard) {
+        numberCard.setValue(infoCard.getNumberCard());
+        month.setValue(infoCard.getMonth());
+        name.setValue(infoCard.getName());
+        year.setValue(infoCard.getYear());
+        cvc.setValue(infoCard.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(10));
+        return new CreditPage();
     }
 
 
@@ -53,6 +55,29 @@ public class CreditPage {
         return new CreditPage();
     }
 
+    public CreditPage notificationCardExpiryDate() {
+        notificationCardExpiryDate.should(appear);
+        return new CreditPage();
+    }
+
+    public CreditPage notificationObligatoryField() {
+        notificationObligatoryField.should(appear);
+        return new CreditPage();
+    }
+
+    public CreditPage notificationInvalidCardExpirationDate() {
+        notificationInvalidCardExpirationDate.should(appear);
+        return new CreditPage();
+    }
+
+    public CreditPage notificationInvalidFormat() {
+        notificationInvalidFormat.should(appear);
+        return new CreditPage();
+    }
+
+
+
+/*
     ///////////оплата по карте Approved///////////
     public CreditPage creditApproved(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid) {
         number.setValue(getInfoCardApproved.getCard());
@@ -347,6 +372,6 @@ public class CreditPage {
         monthNotMask.should(appear);
         return new CreditPage();
     }
-
+*/
 
 }

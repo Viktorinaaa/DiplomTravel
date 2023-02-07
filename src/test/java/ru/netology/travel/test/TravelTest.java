@@ -50,6 +50,8 @@ public class TravelTest {
         //var conn = DataHelperSQL.getOrderEntity();
         var mainPage = open("http://localhost:8080/", MainPage.class);
         var paymentPage = mainPage.transferPay();
+        var numberCard = DataHelper;
+
         var payNumberCardApproved = DataHelper.getInfoNumberCardApproved();
         var payInfoCardApproved = DataHelper.getInfoValid();
         paymentPage.payApprovedTest(payNumberCardApproved, payInfoCardApproved);

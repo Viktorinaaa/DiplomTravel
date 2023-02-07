@@ -29,23 +29,23 @@ public class DataHelper {
         return new InfoCard(null, getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
     }
     public static InfoCard getMonthEmpty() {
-        return new InfoCard(getInfoNumberCardApproved(), null, getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), null, getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
     }
     public static InfoCard getNameEmpty() {
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), null, getYearValid().getYear(), getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), getMonthValid().getMonth(), null, getYearValid().getYear(), getCvcValid().getCvc());
     }
     public static InfoCard getYearEmpty() {
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), null, getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), getMonthValid().getMonth(), getNameValid().getName(), null, getCvcValid().getCvc());
     }
 
     public static InfoCard getCvcEmpty() {
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), null);
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), null);
     }
 
     public static InfoCard getEmpty() {
         return new InfoCard(null, null, null, null, null);
     }
-
+/*
     public static String getInfoNumberCardApproved() {
 
         String infoCardApproved = null;
@@ -56,51 +56,62 @@ public class DataHelper {
         String infoCardDeclined = null;
         return infoCardDeclined = "4444 4444 4444 4442";
     }
+*/
+    public static InfoCard getInfoNumberCardApproved() {
+    //String infoCardApproved = null;
+    return new InfoCard("4444 4444 4444 4441", getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
+    }
+
+    public static InfoCard getInfoNumberCardDeclined() {
+        //String infoCardDeclined = null;
+        //return infoCardDeclined = "4444 4444 4444 4442";
+        return new InfoCard("4444 4444 4444 4442", getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
+    }
 
     ///////ВАЛИДНЫЙ МЕСЯЦ/////////////
     public static InfoCard getMonthValid() {
         String month = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
-        return new InfoCard(getInfoNumberCardApproved(), month, getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), month, getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
     }
 
     //////////ВАЛИДНОЕ ИМЯ////////////////
     public static InfoCard getNameValid() {
         Faker fakerEn = new Faker(new Locale("en"));
         String name = fakerEn.name().fullName();
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), name, getYearValid().getYear(), getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), getMonthValid().getMonth(), name, getYearValid().getYear(), getCvcValid().getCvc());
     }
 
     public static InfoCard getYearValid() {
         String year = LocalDate.now().plusYears(1).format(DateTimeFormatter.ofPattern("YY"));
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), year, getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), getMonthValid().getMonth(), getNameValid().getName(), year, getCvcValid().getCvc());
     }
 
     /////////ВАЛИДНЫЙ CVC//////////////////
     public static InfoCard getCvcValid() {
         Faker fakerInt = new Faker(new Locale("int"));
         String cvc = fakerInt.number().digits(3);
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), cvc);
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), cvc);
     }
 
     public static InfoCard getYearInvalidMinusCurrent() {
         String yearInvalidMinusCurrent = LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("YY"));
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), yearInvalidMinusCurrent, getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), getMonthValid().getMonth(), getNameValid().getName(), yearInvalidMinusCurrent, getCvcValid().getCvc());
     }
 
     public static InfoCard getYearInvalidPlusCurrent() {
         String yearInvalidPlusCurrent = LocalDate.now().plusYears(6).format(DateTimeFormatter.ofPattern("YY"));
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), yearInvalidPlusCurrent, getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), getMonthValid().getMonth(), getNameValid().getName(), yearInvalidPlusCurrent, getCvcValid().getCvc());
     }
 
     public static InfoCard getNameInvalid() {
         String nameInvalid = RandomStringUtils.randomAlphabetic(20);
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), nameInvalid, getYearValid().getYear(), getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), getMonthValid().getMonth(), nameInvalid, getYearValid().getYear(), getCvcValid().getCvc());
     }
 
     public static InfoCard getMonthInvalid() {
         Faker fakerInt = new Faker(new Locale("int"));
         int monthInvalid = fakerInt.number().numberBetween(13, 99);
-        return new InfoCard(getInfoNumberCardApproved(), String.valueOf(monthInvalid), getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), String.valueOf(monthInvalid), getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
     }
 
     public static InfoCard getNumberCardNotMask() {
@@ -112,26 +123,26 @@ public class DataHelper {
     public static InfoCard getCvcNotMask() {
         Faker fakerInt = new Faker(new Locale("int"));
         String cvcNotMask = fakerInt.number().digits(2);
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), cvcNotMask);
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), cvcNotMask);
     }
 
     public static InfoCard getMonthNull() {
         int monthNullInit = 0;
         DecimalFormat decimalFormat = new DecimalFormat("00");
         String monthNull = decimalFormat.format(monthNullInit);
-        return new InfoCard(getInfoNumberCardApproved(), monthNull, getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), monthNull, getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
     }
 
     public static InfoCard getMonthRu() {
         String monthRu = RandomStringUtils.randomAlphabetic(8);
-        return new InfoCard(getInfoNumberCardApproved(), monthRu, getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), monthRu, getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
     }
 
     public static InfoCard getYearNull() {
         int yearNullInit = 0;
         DecimalFormat decimalFormat = new DecimalFormat("00");
         String yearNull = decimalFormat.format(yearNullInit);
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), yearNull, getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), getMonthValid().getMonth(), getNameValid().getName(), yearNull, getCvcValid().getCvc());
     }
 
     public static InfoCard getNumberCardSeparator() {
@@ -144,7 +155,7 @@ public class DataHelper {
         if (monthNotMask == 0) {
             monthNotMask = monthNotMask + 1;
         }
-        return new InfoCard(getInfoNumberCardApproved(), Integer.toString(monthNotMask), getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved().getNumberCard(), Integer.toString(monthNotMask), getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
     }
 
 }
