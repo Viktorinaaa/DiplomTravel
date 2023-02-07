@@ -21,7 +21,7 @@ public class DataHelper {
         private String numberCard;
         private String month;
         private String name;
-        private int year;
+        private String year;
         private String cvc;
     }
 
@@ -51,7 +51,7 @@ public class DataHelper {
 
     public static InfoCard getYearValid() {
         String year = LocalDate.now().plusYears(1).format(DateTimeFormatter.ofPattern("YY"));
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), Integer.parseInt(year), getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), year, getCvcValid().getCvc());
     }
 
     /////////ВАЛИДНЫЙ CVC//////////////////
@@ -63,12 +63,12 @@ public class DataHelper {
 
     public static InfoCard getYearInvalidMinusCurrent() {
         String yearInvalidMinusCurrent = LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("YY"));
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), Integer.parseInt(yearInvalidMinusCurrent), getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), yearInvalidMinusCurrent, getCvcValid().getCvc());
     }
 
     public static InfoCard getYearInvalidPlusCurrent() {
         String yearInvalidPlusCurrent = LocalDate.now().plusYears(6).format(DateTimeFormatter.ofPattern("YY"));
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), Integer.parseInt(yearInvalidPlusCurrent), getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), yearInvalidPlusCurrent, getCvcValid().getCvc());
     }
 
     public static InfoCard getNameInvalid() {
@@ -110,7 +110,7 @@ public class DataHelper {
         int yearNullInit = 0;
         DecimalFormat decimalFormat = new DecimalFormat("00");
         String yearNull = decimalFormat.format(yearNullInit);
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), Integer.parseInt(yearNull), getCvcValid().getCvc());
+        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), yearNull, getCvcValid().getCvc());
     }
 
     public static InfoCard getNumberCardSeparator() {

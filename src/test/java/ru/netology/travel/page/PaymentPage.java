@@ -15,34 +15,26 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class PaymentPage {
     private SelenideElement heading = $x("//h3[text()='Оплата по карте']");
-    private SelenideElement number = $x("//input[@placeholder='0000 0000 0000 0000']");
+    private SelenideElement numberCard = $x("//input[@placeholder='0000 0000 0000 0000']");
     private SelenideElement month = $x("//input[@placeholder='08']");
     private SelenideElement name = $x("//*[text()='Владелец']/following-sibling::span/input");
     private SelenideElement year = $x("//*[text()='Год']/following-sibling::span/input");
     private SelenideElement cvc = $x("//*[@maxlength='3']");
     private ElementsCollection buttonContinuePay = $$(By.className("button__text"));
+
     private ElementsCollection notificationTitle = $$(".notification__title");
     private ElementsCollection notificationContent = $$(".notification__content");
 
-    private SelenideElement invalidYear = $x("//*[text()='Истёк срок действия карты']");
-    private SelenideElement invalidName = $x("//*[text()='Поле обязательно для заполнения']");
-    private SelenideElement invalidMonth = $x("//*[text()='Неверно указан срок действия карты']");
-    private SelenideElement numberCardNotMask = $x("//*[text()='Неверный формат']");
-    private SelenideElement cvcNotMask = $x("//*[text()='Неверный формат']");
-    private SelenideElement monthEmpty = $x("//*[text()='Неверный формат']");
-    private SelenideElement numberCardEmpty = $x("//*[text()='Неверный формат']");
-    private SelenideElement nameEmpty = $x("//*[text()='Поле обязательно для заполнения']");
-    private SelenideElement yearEmpty = $x("//*[text()='Неверный формат']");
-    private SelenideElement cvcEmpty = $x("//*[text()='Неверный формат']");
-    private SelenideElement monthNull = $x("//*[text()='Неверно указан срок действия карты']");
-    private SelenideElement monthRu = $x("//*[text()='Неверный формат']");
-    private SelenideElement yearNull = $x("//*[text()='Истёк срок действия карты']");
-    private SelenideElement monthNotMask = $x("//*[text()='Неверный формат']");
+    private SelenideElement notificationCardExpiryDate = $x("//*[text()='Истёк срок действия карты']");
+    private SelenideElement notificationObligatoryField = $x("//*[text()='Поле обязательно для заполнения']");
+    private SelenideElement notificationInvalidCardExpirationDate = $x("//*[text()='Неверно указан срок действия карты']");
+    private SelenideElement notificationInvalidFormat = $x("//*[text()='Неверный формат']");
+
 
     //////видимость объектов/////////////
     public PaymentPage() {
         heading.shouldBe(visible);
-        number.shouldBe(visible);
+        numberCard.shouldBe(visible);
         month.shouldBe(visible);
         name.shouldBe(visible);
         year.shouldBe(visible);
@@ -50,19 +42,118 @@ public class PaymentPage {
         buttonContinuePay.get(2).shouldBe(visible);
     }
 
-    ///test///
-    public PaymentPage payApprovedTest(DataHelper.InfoCard getInfoValid, DataHelper.) {
-        number.setValue(getInfoValid.getNumberCard());
-        month.setValue(getInfoValid.getMonth());
-        name.setValue(getInfoValid.getName());
-        year.setValue(String.valueOf(getInfoValid.getYear()));
-        cvc.setValue(getInfoValid.getCvc());
+    ///Запись в форму///
+    public PaymentPage payWriteInForm(DataHelper.InfoCard infoCard) {
+        numberCard.setValue(infoCard.getNumberCard());
+        month.setValue(infoCard.getMonth());
+        name.setValue(infoCard.getName());
+        year.setValue(infoCard.getYear());
+        cvc.setValue(infoCard.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(30)); //ofSeconds(100000));
+        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(10));
+        return new PaymentPage();
+    }
+
+    public PaymentPage payEmpty(DataHelper.InfoCard infoCard) {
+        numberCard = null;
+        month = null;
+        name = null;
+        year = null;
+        cvc = null;
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(10));
+        return new PaymentPage();
+    }
+
+    public PaymentPage payNumberCardEmpty(DataHelper.InfoCard infoCard) {
+        numberCard = null;
+        month.setValue(infoCard.getMonth());
+        name.setValue(infoCard.getName());
+        year.setValue(infoCard.getYear());
+        cvc.setValue(infoCard.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(10));
+        return new PaymentPage();
+    }
+
+    public PaymentPage payMonthEmpty(DataHelper.InfoCard infoCard) {
+        numberCard.setValue(infoCard.getNumberCard());
+        month = null;
+        name.setValue(infoCard.getName());
+        year.setValue(infoCard.getYear());
+        cvc.setValue(infoCard.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(10));
+        return new PaymentPage();
+    }
+
+    public PaymentPage payNameEmpty(DataHelper.InfoCard infoCard) {
+        numberCard.setValue(infoCard.getNumberCard());
+        month.setValue(infoCard.getMonth());
+        name = null;
+        year.setValue(infoCard.getYear());
+        cvc.setValue(infoCard.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(10));
+        return new PaymentPage();
+    }
+
+    public PaymentPage payYearEmpty(DataHelper.InfoCard infoCard) {
+        numberCard.setValue(infoCard.getNumberCard());
+        month.setValue(infoCard.getMonth());
+        name.setValue(infoCard.getName());
+        year = null;
+        cvc.setValue(infoCard.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(10));
+        return new PaymentPage();
+    }
+
+    public PaymentPage payCvcEmpty(DataHelper.InfoCard infoCard) {
+        numberCard.setValue(infoCard.getNumberCard());
+        month.setValue(infoCard.getMonth());
+        name.setValue(infoCard.getName());
+        year.setValue(infoCard.getYear());;
+        cvc = null;
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(10));
         return new PaymentPage();
     }
 
 
+
+    public PaymentPage notificationSuccessfulPay() {
+        notificationTitle.get(0).shouldHave(exactText("Успешно"));
+        notificationContent.get(0).shouldHave(exactText("Операция одобрена Банком."));
+        return new PaymentPage();
+    }
+
+    public PaymentPage notificationCardExpiryDate() {
+        notificationCardExpiryDate.should(appear);
+        return new PaymentPage();
+    }
+
+    public PaymentPage notificationObligatoryField() {
+        notificationObligatoryField.should(appear);
+        return new PaymentPage();
+    }
+
+    public PaymentPage notificationInvalidCardExpirationDate() {
+        notificationInvalidCardExpirationDate.should(appear);
+        return new PaymentPage();
+    }
+
+    public PaymentPage notificationInvalidFormat() {
+        notificationInvalidFormat.should(appear);
+        return new PaymentPage();
+    }
+
+
+
+
+
+
+/*
 
     ///////////оплата по карте Approved///////////
     public PaymentPage payApproved(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid) {
@@ -89,11 +180,7 @@ public class PaymentPage {
         return new PaymentPage();
     }
 
-    public PaymentPage notificationPay() {
-        notificationTitle.get(0).shouldHave(exactText("Успешно"));
-        notificationContent.get(0).shouldHave(exactText("Операция одобрена Банком."));
-        return new PaymentPage();
-    }
+
 
     ///////////пустая оплата по карте///////////
     public PaymentPage transferPayEmpty() {
@@ -105,9 +192,9 @@ public class PaymentPage {
         return new PaymentPage();
     }
 
-//!!!!!!!!!!!!!!!!!!!!!!!
+
     ////Оплата с истекшим сроком действия///////////
- /*   public PaymentPage transferPayApprovedYearInvalid(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid,
+   public PaymentPage transferPayApprovedYearInvalid(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid,
                                                       DataHelper.YearInvalid getYearInvalid) {
         number.setValue(getInfoCardApproved.getCard());
         month.setValue(getInfoValid.getMonth());
@@ -117,21 +204,9 @@ public class PaymentPage {
         buttonContinuePay.get(2).click();
         buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
-    }*/
-
-
-        public PaymentPage transferPayApprovedYearInvalid(DataHelper.InfoCard getInfoValid) {
-
-
-        number.setValue(getInfoValid.getNumberCard());
-        month.setValue(getInfoValid.getMonth());
-        name.setValue(getInfoValid.getName());
-        year.setValue(String.valueOf(getInfoValid.getYearInvalid()));
-        cvc.setValue(getInfoValid.getCvc());
-        buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
-        return new PaymentPage();
     }
+
+
 
 
     public PaymentPage payApprovedYearInvalid() {
@@ -152,18 +227,6 @@ public class PaymentPage {
         return new PaymentPage();
     }
 
-    /*
-    public PaymentPage transferPayApprovedNameInvalid(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid) {
-        number.setValue(getInfoCardApproved.getCard());
-        month.setValue(getInfoValid.getMonth());
-        name.setValue(getInfoValid.getNameInvalid);
-        year.setValue(String.valueOf(getInfoValid.getYear()));
-        cvc.setValue(getInfoValid.getCvc());
-        buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
-        return new PaymentPage();
-    }
-     */
 
     public PaymentPage payApprovedNameInvalid() {
         invalidName.should(appear);
@@ -183,18 +246,7 @@ public class PaymentPage {
         return new PaymentPage();
     }
 
-    /*
-    public PaymentPage transferPayApprovedMonthInvalid(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid) {
-        number.setValue(getInfoCardApproved.getCard());
-        month.setValue(String.valueOf(getInfoValid.getMonthInvalid()));
-        name.setValue(getInfoValid.getName());
-        year.setValue(String.valueOf(getInfoValid.getYear()));
-        cvc.setValue(getInfoValid.getCvc());
-        buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
-        return new PaymentPage();
-    }
-     */
+
 
     public PaymentPage payApprovedMonthInvalid() {
         invalidMonth.should(appear);
@@ -214,18 +266,7 @@ public class PaymentPage {
         return new PaymentPage();
     }
 
-    /*
-        public PaymentPage transferPayApprovedNumberCardNotMask(DataHelper.InfoCard getInfoValid) {
-        number.setValue(getInfoValid.getNumberCardNotMask());
-        month.setValue(getInfoValid.getMonth());
-        name.setValue(getInfoValid.getName());
-        year.setValue(String.valueOf(getInfoValid.getYear()));
-        cvc.setValue(getInfoValid.getCvc());
-        buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
-        return new PaymentPage();
-    }
-     */
+
 
     public PaymentPage payApprovedNumberCardNotMask() {
         numberCardNotMask.should(appear);
@@ -245,19 +286,7 @@ public class PaymentPage {
         return new PaymentPage();
     }
 
-    /*public PaymentPage transferPayApprovedCvcNotMask(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid) {
-        number.setValue(getInfoCardApproved.getCard());
-        month.setValue(getInfoValid.getMonth());
-        name.setValue(getInfoValid.getName());
-        year.setValue(String.valueOf(getInfoValid.getYear()));
-        cvc.setValue(getInfoValid.getCvcNotMask());
-        buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
-        return new PaymentPage();
-    }
 
-
-     */
 
     public PaymentPage payApprovedCvcNotMask() {
         cvcNotMask.should(appear);
@@ -373,7 +402,7 @@ public class PaymentPage {
         return new PaymentPage();
     }
 */
-    public PaymentPage payApprovedMonthNull() {
+/*    public PaymentPage payApprovedMonthNull() {
         monthNull.should(appear);
         return new PaymentPage();
     }
@@ -403,7 +432,7 @@ public class PaymentPage {
         buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
-     */
+
 
     public PaymentPage payApprovedMonthRu() {
         monthRu.should(appear);
@@ -435,7 +464,7 @@ public class PaymentPage {
         return new PaymentPage();
     }
      */
-
+/*
     public PaymentPage payApprovedYearNull() {
         yearNull.should(appear);
         return new PaymentPage();
@@ -465,7 +494,7 @@ public class PaymentPage {
         buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
-     */
+
 
     ///////Месяц не по маске/////////
     public PaymentPage transferPayApprovedMonthNotMask(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid,
@@ -492,12 +521,11 @@ public class PaymentPage {
         return new PaymentPage();
     }
 
-     */
+
 
     public PaymentPage payApprovedMonthNotMask() {
         monthNotMask.should(appear);
         return new PaymentPage();
     }
-
-
+*/
 }
