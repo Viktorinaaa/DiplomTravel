@@ -329,6 +329,7 @@ public class CreditPage {
         return new CreditPage();
     }
 
+
     ///////Месяц не по маске/////////
     public CreditPage transferCreditApprovedMonthNotMask(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid,
                                                          DataHelper.MonthNotMask getMonthNotMask) {

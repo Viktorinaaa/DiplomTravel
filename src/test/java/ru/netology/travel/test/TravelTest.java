@@ -1,11 +1,13 @@
 package ru.netology.travel.test;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 import lombok.SneakyThrows;
-import org.junit.jupiter.api.Test;
 import ru.netology.travel.data.DataHelper;
 import ru.netology.travel.data.DataHelperSQL;
 import ru.netology.travel.data.TablesSQL.OrderEntity;
@@ -20,12 +22,40 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TravelTest {
 
+    @BeforeAll
+    static void setupAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
     @BeforeEach
     @SneakyThrows
     void setup() {
         Configuration.holdBrowserOpen = true;
         open("http://localhost:8080");
     }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
+
+    @AfterEach
+    void closeBrowser() {
+        Selenide.closeWindow();
+    }
+
+    @Test
+        //test
+    void shouldValidTransferPayApprovedTest() {
+        //var conn = DataHelperSQL.getOrderEntity();
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var payNumberCardApproved = DataHelper.getInfoNumberCardApproved();
+        var payInfoCardApproved = DataHelper.getInfoValid();
+        paymentPage.payApprovedTest(payNumberCardApproved, payInfoCardApproved);
+        paymentPage.notificationPay();
+    }
+
 
     /////1_Валидная оплата по карте Approved/////////
     @Test

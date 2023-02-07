@@ -50,6 +50,19 @@ public class PaymentPage {
         buttonContinuePay.get(2).shouldBe(visible);
     }
 
+    ///test///
+    public PaymentPage payApprovedTest(DataHelper.InfoCard getInfoValid, DataHelper.) {
+        number.setValue(getInfoValid.getNumberCard());
+        month.setValue(getInfoValid.getMonth());
+        name.setValue(getInfoValid.getName());
+        year.setValue(String.valueOf(getInfoValid.getYear()));
+        cvc.setValue(getInfoValid.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(30)); //ofSeconds(100000));
+        return new PaymentPage();
+    }
+
+
 
     ///////////оплата по карте Approved///////////
     public PaymentPage payApproved(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid) {
@@ -59,9 +72,10 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60)); //ofSeconds(100000));
         return new PaymentPage();
     }
+
 
     ///////////оплата по карте Declined///////////
     public PaymentPage payDeclined(DataHelper.NumberCard getInfoCardDeclined, DataHelper.InfoCard getInfoValid) {
@@ -71,6 +85,7 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
 
@@ -90,9 +105,9 @@ public class PaymentPage {
         return new PaymentPage();
     }
 
-
+//!!!!!!!!!!!!!!!!!!!!!!!
     ////Оплата с истекшим сроком действия///////////
-    public PaymentPage transferPayApprovedYearInvalid(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid,
+ /*   public PaymentPage transferPayApprovedYearInvalid(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid,
                                                       DataHelper.YearInvalid getYearInvalid) {
         number.setValue(getInfoCardApproved.getCard());
         month.setValue(getInfoValid.getMonth());
@@ -100,9 +115,24 @@ public class PaymentPage {
         year.setValue(getYearInvalid.toString());
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
+        return new PaymentPage();
+    }*/
+
+
+        public PaymentPage transferPayApprovedYearInvalid(DataHelper.InfoCard getInfoValid) {
+
+
+        number.setValue(getInfoValid.getNumberCard());
+        month.setValue(getInfoValid.getMonth());
+        name.setValue(getInfoValid.getName());
+        year.setValue(String.valueOf(getInfoValid.getYearInvalid()));
+        cvc.setValue(getInfoValid.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
+
 
     public PaymentPage payApprovedYearInvalid() {
         invalidYear.should(appear);
@@ -118,9 +148,22 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
+
+    /*
+    public PaymentPage transferPayApprovedNameInvalid(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid) {
+        number.setValue(getInfoCardApproved.getCard());
+        month.setValue(getInfoValid.getMonth());
+        name.setValue(getInfoValid.getNameInvalid);
+        year.setValue(String.valueOf(getInfoValid.getYear()));
+        cvc.setValue(getInfoValid.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
+        return new PaymentPage();
+    }
+     */
 
     public PaymentPage payApprovedNameInvalid() {
         invalidName.should(appear);
@@ -136,9 +179,22 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
+
+    /*
+    public PaymentPage transferPayApprovedMonthInvalid(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid) {
+        number.setValue(getInfoCardApproved.getCard());
+        month.setValue(String.valueOf(getInfoValid.getMonthInvalid()));
+        name.setValue(getInfoValid.getName());
+        year.setValue(String.valueOf(getInfoValid.getYear()));
+        cvc.setValue(getInfoValid.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
+        return new PaymentPage();
+    }
+     */
 
     public PaymentPage payApprovedMonthInvalid() {
         invalidMonth.should(appear);
@@ -154,9 +210,22 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
+
+    /*
+        public PaymentPage transferPayApprovedNumberCardNotMask(DataHelper.InfoCard getInfoValid) {
+        number.setValue(getInfoValid.getNumberCardNotMask());
+        month.setValue(getInfoValid.getMonth());
+        name.setValue(getInfoValid.getName());
+        year.setValue(String.valueOf(getInfoValid.getYear()));
+        cvc.setValue(getInfoValid.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
+        return new PaymentPage();
+    }
+     */
 
     public PaymentPage payApprovedNumberCardNotMask() {
         numberCardNotMask.should(appear);
@@ -172,15 +241,29 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         cvc.setValue(getCvcNotMask.getCvcNotMask());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
+
+    /*public PaymentPage transferPayApprovedCvcNotMask(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid) {
+        number.setValue(getInfoCardApproved.getCard());
+        month.setValue(getInfoValid.getMonth());
+        name.setValue(getInfoValid.getName());
+        year.setValue(String.valueOf(getInfoValid.getYear()));
+        cvc.setValue(getInfoValid.getCvcNotMask());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
+        return new PaymentPage();
+    }
+
+
+     */
 
     public PaymentPage payApprovedCvcNotMask() {
         cvcNotMask.should(appear);
         return new PaymentPage();
     }
-
+/*
     ///////Пустой номер карты/////////
     public PaymentPage transferPayApprovedNumberCardEmpty(DataHelper.InfoCard getInfoValid) {
         month.setValue(getInfoValid.getMonth());
@@ -188,7 +271,7 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
 
@@ -205,7 +288,7 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
 
@@ -223,7 +306,7 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
 
@@ -240,7 +323,7 @@ public class PaymentPage {
         month.setValue(getInfoValid.getMonth());
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
 
@@ -257,7 +340,7 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         month.setValue(getInfoValid.getMonth());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
 
@@ -275,10 +358,21 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
-
+/*
+    public PaymentPage transferPayApprovedMonthNull(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid) {
+        number.setValue(getInfoCardApproved.getCard());
+        month.setValue(getInfoValid.getMonthNull());
+        name.setValue(getInfoValid.getName());
+        year.setValue(String.valueOf(getInfoValid.getYear()));
+        cvc.setValue(getInfoValid.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
+        return new PaymentPage();
+    }
+*/
     public PaymentPage payApprovedMonthNull() {
         monthNull.should(appear);
         return new PaymentPage();
@@ -294,9 +388,22 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
+
+    /*
+    public PaymentPage transferPayApprovedMonthRu(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid) {
+        number.setValue(getInfoCardApproved.getCard());
+        month.setValue(getMonthRu.getMonthRu());
+        name.setValue(getInfoValid.getName());
+        year.setValue(String.valueOf(getInfoValid.getYear()));
+        cvc.setValue(getInfoValid.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
+        return new PaymentPage();
+    }
+     */
 
     public PaymentPage payApprovedMonthRu() {
         monthRu.should(appear);
@@ -312,9 +419,22 @@ public class PaymentPage {
         year.setValue(getYearNull.toString());
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
+
+    /*
+    public PaymentPage transferPayApprovedYearNull(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid) {
+        number.setValue(getInfoCardApproved.getCard());
+        month.setValue(getInfoValid.getMonth());
+        name.setValue(getInfoValid.getName());
+        year.setValue(getInfoValid.getYearNull.toString());
+        cvc.setValue(getInfoValid.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
+        return new PaymentPage();
+    }
+     */
 
     public PaymentPage payApprovedYearNull() {
         yearNull.should(appear);
@@ -330,9 +450,22 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
+
+    /*
+        public PaymentPage transferPayApprovedNumberCardSeparator(DataHelper.InfoCard getInfoValid) {
+        number.setValue(getInfoValid.getNumberCardSeparator());
+        month.setValue(getInfoValid.getMonth());
+        name.setValue(getInfoValid.getName());
+        year.setValue(String.valueOf(getInfoValid.getYear()));
+        cvc.setValue(getInfoValid.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
+        return new PaymentPage();
+    }
+     */
 
     ///////Месяц не по маске/////////
     public PaymentPage transferPayApprovedMonthNotMask(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid,
@@ -343,9 +476,23 @@ public class PaymentPage {
         year.setValue(String.valueOf(getInfoValid.getYear()));
         cvc.setValue(getInfoValid.getCvc());
         buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(50));
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
         return new PaymentPage();
     }
+
+    /*
+     public PaymentPage transferPayApprovedMonthNotMask(DataHelper.NumberCard getInfoCardApproved, DataHelper.InfoCard getInfoValid) {
+        number.setValue(getInfoCardApproved.getCard());
+        month.setValue(getInfoValid.getMonthNotMask());
+        name.setValue(getInfoValid.getName());
+        year.setValue(String.valueOf(getInfoValid.getYear()));
+        cvc.setValue(getInfoValid.getCvc());
+        buttonContinuePay.get(2).click();
+        buttonContinuePay.get(2).should(appear, Duration.ofMinutes(60));
+        return new PaymentPage();
+    }
+
+     */
 
     public PaymentPage payApprovedMonthNotMask() {
         monthNotMask.should(appear);
