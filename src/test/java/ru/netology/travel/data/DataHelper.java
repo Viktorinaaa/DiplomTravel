@@ -17,22 +17,6 @@ public class DataHelper {
     }
 
     @Value
-    public static class NumberCard {
-        private String card;
-        private String status;
-    }
-
-    public static NumberCard getInfoCardApproved() {
-
-        return new NumberCard("4444 4444 4444 4441", "APPROVED");
-    }
-
-    public static NumberCard getInfoCardDeclined() {
-
-        return new NumberCard("4444 4444 4444 4442", "DECLINED");
-    }
-
-    @Value
     public static class InfoCard {
         private String numberCard;
         private String month;
@@ -143,10 +127,25 @@ public class DataHelper {
         }
         return new InfoCard(getInfoNumberCardApproved(), Integer.toString(monthNotMask), getInfoValid().getName(), getInfoValid().getYear(), getInfoValid().getCvc());
     }
+
+    @Value
+    public static class NumberCard {
+        private String card;
+        private String status;
+    }
+
+    public static NumberCard getInfoCardApproved() {
+
+        return new NumberCard("4444 4444 4444 4441", "APPROVED");
+    }
+
+    public static NumberCard getInfoCardDeclined() {
+
+        return new NumberCard("4444 4444 4444 4442", "DECLINED");
+    }
 }
 
 
-////////////////
 
 ///////////////////////////////////////
 ///////////////////////////////////////
