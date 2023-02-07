@@ -36,7 +36,7 @@ public class DataHelper {
         return infoCardDeclined = "4444 4444 4444 4442";
     }
 
-    ///////ИСПРАВЛЕН!!!ВАЛИДНЫЙ МЕСЯЦ/////////////
+    ///////ВАЛИДНЫЙ МЕСЯЦ/////////////
     public static InfoCard getMonthValid() {
         String month = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
         return new InfoCard(getInfoNumberCardApproved(), month, getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
@@ -61,9 +61,14 @@ public class DataHelper {
         return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), cvc);
     }
 
-    public static InfoCard getYearInvalid() {
-        String yearInvalid = LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("YY"));
-        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), Integer.parseInt(yearInvalid), getCvcValid().getCvc());
+    public static InfoCard getYearInvalidMinusCurrent() {
+        String yearInvalidMinusCurrent = LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("YY"));
+        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), Integer.parseInt(yearInvalidMinusCurrent), getCvcValid().getCvc());
+    }
+
+    public static InfoCard getYearInvalidPlusCurrent() {
+        String yearInvalidMinusCurrent = LocalDate.now().plusYears(6).format(DateTimeFormatter.ofPattern("YY"));
+        return new InfoCard(getInfoNumberCardApproved(), getMonthValid().getMonth(), getNameValid().getName(), Integer.parseInt(yearInvalidMinusCurrent), getCvcValid().getCvc());
     }
 
     public static InfoCard getNameInvalid() {
