@@ -45,25 +45,13 @@ public class DataHelper {
     public static InfoCard getEmpty() {
         return new InfoCard(null, null, null, null, null);
     }
-/*
-    public static String getInfoNumberCardApproved() {
 
-        String infoCardApproved = null;
-        return infoCardApproved = "4444 4444 4444 4441";
-    }
 
-    public static String getInfoNumberCardDeclined() {
-        String infoCardDeclined = null;
-        return infoCardDeclined = "4444 4444 4444 4442";
-    }
-*/
     public static InfoCard getInfoNumberCardApproved() {
     return new InfoCard("4444 4444 4444 4441", getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
     }
 
     public static InfoCard getInfoNumberCardDeclined() {
-        //String infoCardDeclined = null;
-        //return infoCardDeclined = "4444 4444 4444 4442";
         return new InfoCard("4444 4444 4444 4442", getMonthValid().getMonth(), getNameValid().getName(), getYearValid().getYear(), getCvcValid().getCvc());
     }
 

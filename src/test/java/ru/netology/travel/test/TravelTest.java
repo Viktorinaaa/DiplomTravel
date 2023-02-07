@@ -17,6 +17,8 @@ import ru.netology.travel.page.MainPage;
 
 import java.sql.DriverManager;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Selenide.*;
@@ -52,7 +54,7 @@ public class TravelTest {
 
     @Test
         //test
-    void shouldValidTransferPayApprovedTest() {
+    void shouldValidTransferPayApproved() {
         //var conn = DataHelperSQL.getOrderEntity();
         var mainPage = open("http://localhost:8080/", MainPage.class);
         var paymentPage = mainPage.transferPay();
@@ -63,8 +65,8 @@ public class TravelTest {
         var cvc = DataHelper.getCvcValid().getCvc();
         paymentPage.payWriteInForm(infoCard);
         paymentPage.notificationSuccessfulPay();
-        System.out.println(numberCard);
     }
+
 
 /*
     /////1_Валидная оплата по карте Approved/////////
