@@ -4,6 +4,7 @@ package ru.netology.travel.data;
 import lombok.SneakyThrows;
 //import lombok.var;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import ru.netology.travel.data.TablesSQL.CreditRequestEntity;
 import ru.netology.travel.data.TablesSQL.OrderEntity;
@@ -33,44 +34,35 @@ public class DataHelperSQL {
 
     /////ПОЛУЧЕНИЕ ПОСЛЕДНЕЙ ЗАПИСИ В OrderEntity///////////
     @SneakyThrows
-    public static OrderEntity getOrderEntity() {
-        var lastOrderEntitySQL = "SELECT * FROM order_entity\n" +
-                "ORDER BY created DESC LIMIT 1;";
-        try (
-                var conn = getConnection();
-        ) {
-            var lastOrderEntity = runner.query(getConnection(), lastOrderEntitySQL,
-                    new BeanListHandler<>(OrderEntity.class));
+    public static OrderEntity getOrderEntityLast() {
+        var lastOrderEntitySQL = "SELECT * FROM order_entity ORDER BY created DESC LIMIT 1;";
+        try (var conn = getConnection()) {
+            var lastOrderEntity = runner.query(conn, lastOrderEntitySQL,
+                    new BeanHandler<>(OrderEntity.class));
             return (OrderEntity) lastOrderEntity;
         }
     }
 
     /////ПОЛУЧЕНИЕ ПОСЛЕДНЕЙ ЗАПИСИ В PaymentEntity///////////
     @SneakyThrows
-    public static PaymentEntity PaymentEntity() {
-        var lastPaymentEntitySQL = "SELECT * FROM payment_entity;\n" +
-                "ORDER BY created DESC LIMIT 1;";
-        try (
-                var conn = getConnection();
-        ) {
-            var lastPaymentEntity = runner.query(getConnection(), lastPaymentEntitySQL,
-                    new BeanListHandler<>(PaymentEntity.class));
-            return (PaymentEntity) lastPaymentEntity;
+    public static PaymentEntity getPaymentEntityLast() {
+        var lastPaymentEntitySQL = "SELECT * FROM payment_entity ORDER BY created DESC LIMIT 1;";
+        try (var conn = getConnection()) {
+            var lastPaymentEntity = runner.query(conn, lastPaymentEntitySQL,
+                    new BeanHandler<>(PaymentEntity.class));
+            return lastPaymentEntity;
         }
     }
 
 
-    /////ПОЛУЧЕНИЕ ПОСЛЕДНЕЙ ЗАПИСИ В OrderEntity///////////
+    /////ПОЛУЧЕНИЕ ПОСЛЕДНЕЙ ЗАПИСИ В CreditRequestEntity///////////
     @SneakyThrows
-    public static CreditRequestEntity OrderEntity() {
-        var lastCreditEntitySQL = "SELECT * FROM credit_request_entity;\n" +
-                "ORDER BY created DESC LIMIT 1;";
-        try (
-                var conn = getConnection();
-        ) {
-            var lastCreditEntity = runner.query(getConnection(), lastCreditEntitySQL,
-                    new BeanListHandler<>(PaymentEntity.class));
-            return (CreditRequestEntity) lastCreditEntity;
+    public static CreditRequestEntity getCreditRequestEntityLast() {
+        var lastCreditEntitySQL = "SELECT * FROM credit_request_entity ORDER BY created DESC LIMIT 1;";
+        try (var conn = getConnection()) {
+            var lastCreditEntity = runner.query(conn, lastCreditEntitySQL,
+                    new BeanHandler<>(CreditRequestEntity.class));
+            return lastCreditEntity;
         }
     }
 

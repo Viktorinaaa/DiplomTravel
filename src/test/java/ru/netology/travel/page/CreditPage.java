@@ -18,9 +18,13 @@ public class CreditPage {
     private SelenideElement name = $x("//*[text()='Владелец']/following-sibling::span/input");
     private SelenideElement year = $x("//*[text()='Год']/following-sibling::span/input");
     private SelenideElement cvc = $x("//*[@maxlength='3']");
-    private ElementsCollection buttonContinuePay = $$(By.className("button__text"));
-    private ElementsCollection notificationTitle = $$(".notification__title");
-    private ElementsCollection notificationContent = $$(".notification__content");
+    //private ElementsCollection buttonContinuePay = $$(By.className("button__text"));
+    //private ElementsCollection notificationTitle = $$(".notification__title");
+    //private ElementsCollection notificationContent = $$(".notification__content");
+    private SelenideElement buttonContinuePay = $("fieldset button");
+
+    private SelenideElement notificationTitle = $(".notification_status_ok");
+    private SelenideElement notificationTitleError = $(".notification_status_error");
 
     private SelenideElement notificationCardExpiryDate = $x("//*[text()='Истёк срок действия карты']");
     private SelenideElement notificationObligatoryField = $x("//*[text()='Поле обязательно для заполнения']");
@@ -33,46 +37,45 @@ public class CreditPage {
         name.shouldBe(visible);
         year.shouldBe(visible);
         cvc.shouldBe(visible);
-        buttonContinuePay.get(2).shouldBe(visible);
+        buttonContinuePay.shouldBe(visible);
     }
 
     ///Запись в форму///
-    public CreditPage creditWriteInForm(DataHelper.InfoCard infoCard) {
+    public void creditWriteInForm(DataHelper.InfoCard infoCard) {
         numberCard.setValue(infoCard.getNumberCard());
         month.setValue(infoCard.getMonth());
         name.setValue(infoCard.getName());
         year.setValue(infoCard.getYear());
         cvc.setValue(infoCard.getCvc());
-        buttonContinuePay.get(2).click();
-        buttonContinuePay.get(2).should(appear, Duration.ofSeconds(10));
-        return new CreditPage();
+        buttonContinuePay.click();
+        buttonContinuePay.should(appear, Duration.ofSeconds(10));
     }
 
 
-    public CreditPage notificationCredit() {
-        notificationTitle.get(0).shouldHave(exactText("Успешно"));
-        notificationContent.get(0).shouldHave(exactText("Операция одобрена Банком."));
-        return new CreditPage();
+    public void notificationSuccessfulPay() {
+        notificationTitle.shouldHave(text("Успешно\n" +
+                "Операция одобрена Банком."), Duration.ofSeconds(15)).shouldBe(visible);
     }
 
-    public CreditPage notificationCardExpiryDate() {
+    public void notificationErrorPay() {
+        notificationTitle.shouldHave(text("Ошибка\n" +
+                "Ошибка! Банк отказал в проведении операции."), Duration.ofSeconds(15)).shouldBe(visible);
+    }
+
+    public void notificationCardExpiryDate() {
         notificationCardExpiryDate.should(appear);
-        return new CreditPage();
     }
 
-    public CreditPage notificationObligatoryField() {
+    public void notificationObligatoryField() {
         notificationObligatoryField.should(appear);
-        return new CreditPage();
     }
 
-    public CreditPage notificationInvalidCardExpirationDate() {
+    public void notificationInvalidCardExpirationDate() {
         notificationInvalidCardExpirationDate.should(appear);
-        return new CreditPage();
     }
 
-    public CreditPage notificationInvalidFormat() {
+    public void notificationInvalidFormat() {
         notificationInvalidFormat.should(appear);
-        return new CreditPage();
     }
 
 

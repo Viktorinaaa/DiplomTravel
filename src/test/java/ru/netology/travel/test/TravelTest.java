@@ -50,22 +50,435 @@ public class TravelTest {
         Selenide.closeWindow();
     }
 
-   private DataHelper.InfoCard infoCard;
 
+    /////1_Валидная оплата по карте Approved/////////
     @Test
-        //test
     void shouldValidTransferPayApproved() {
-        //var conn = DataHelperSQL.getOrderEntity();
         var mainPage = open("http://localhost:8080/", MainPage.class);
         var paymentPage = mainPage.transferPay();
-        var numberCard = DataHelper.getInfoNumberCardApproved().getNumberCard();
-        var month = DataHelper.getMonthValid().getMonth();
-        var name = DataHelper.getNameValid().getName();
-        var year = DataHelper.getYearValid().getYear();
-        var cvc = DataHelper.getCvcValid().getCvc();
+        var infoCard = DataHelper.getValidInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationSuccessfulPay();
+        assertEquals("APPROVED", DataHelperSQL.getPaymentEntityLast().getStatus());
+    }
+
+    /////!!!! баг2_оплата по карте DECLINED/////////
+    @Test
+    void shouldValidTransferPayDeclined() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getDeclinedInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationErrorPay();
+        assertEquals("DECLINED", DataHelperSQL.getPaymentEntityLast().getStatus());
+    }
+
+    //////3_Валидная оплата с помощью кредита Approved/////////
+    @Test
+    void shouldValidTransferCreditApproved() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getValidInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationSuccessfulPay();
+        assertEquals("APPROVED", DataHelperSQL.getCreditRequestEntityLast().getStatus());
+    }
+
+    /////!!!! баг4_Валидная оплата с помощью кредита Declined/////////
+    @Test
+    void shouldValidTransferCreditDeclined() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getDeclinedInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationErrorPay();
+        //assertEquals("DECLINED", DataHelperSQL.getPaymentEntityLast().getStatus());
+    }
+
+    /////5-1_Пустая отправка данных по карте/////////
+    @Test
+    void shouldTransferPayApprovedEmpty() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getEmptyInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationInvalidFormat();
+        paymentPage.notificationObligatoryField();
+
+        //assertEquals("APPROVED", DataHelperSQL.getPaymentEntityLast().getStatus());
+    }
+
+    /////5-2_Пустая отправка данных по карте/////////
+    @Test
+    void shouldTransferCreditApprovedEmpty() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getEmptyInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationInvalidFormat();
+        creditPage.notificationObligatoryField();
+        //assertEquals("DECLINED", DataHelperSQL.getPaymentEntityLast().getStatus());
+    }
+
+    /////6-1_Истек срок действия карты/////////
+    @Test
+    void shouldTransferPayApprovedYearInvalid() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getYearMinusCurrentInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationCardExpiryDate();
+        //assertEquals("APPROVED", DataHelperSQL.getPaymentEntityLast().getStatus());
+    }
+
+    /////6-2_Истек срок действия карты/////////
+    @Test
+    void shouldTransferCreditApprovedYearMinusCurrent() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getYearMinusCurrentInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationCardExpiryDate();
+        //assertEquals("APPROVED", DataHelperSQL.getCreditRequestEntityLast().getStatus());
+    }
+
+    /////!!!7-1-баг_Невалидный владелец/////////
+    @Test
+    void shouldTransferPayApprovedNameInvalid() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getNameInvalidInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationObligatoryField();
+    }
+    /////!!!7-2-баг_Невалидный владелец/////////
+    @Test
+    void shouldTransferCreditApprovedNameInvalid() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getNameInvalidInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationObligatoryField();
+    }
+
+    /////8-1_Невалидное значение месяца/////////
+    @Test
+    void shouldTransferPayApprovedMonthInvalid() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getMonthInvalidInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationInvalidCardExpirationDate();
+        //assertEquals("APPROVED", DataHelperSQL.getPaymentEntityLast().getStatus());
+    }
+    /////8-2_Невалидное значение месяца/////////
+    @Test
+    void shouldTransferCreditApprovedMonthInvalid() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getMonthInvalidInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationInvalidCardExpirationDate();
+    }
+
+    /////9-1_Номер карты не по маске/////////
+    @Test
+    void shouldTransferPayApprovedNumberCardNotMask() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getNumberCardNotMaskInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationInvalidFormat();
+    }
+
+    /////9-2_Номер карты не по маске/////////
+    @Test
+    void shouldTransferCreditApprovedNumberCardNotMask() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getNumberCardNotMaskInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationInvalidFormat();
+    }
+
+    /////10-1_CVC не по маске/////////
+    @Test
+    void shouldTransferPayApprovedCvcNotMask() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getCvcNotMaskInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationInvalidFormat();
+    }
+
+    /////10-2_CVC не по маске/////////
+    @Test
+    void shouldTransferCreditApprovedCvcNotMask() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getCvcNotMaskInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationInvalidFormat();
+    }
+
+    /////11-1/////////
+    @Test
+    void shouldTransferPayApprovedNumberCardEmpty() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getNumberCardEmptyInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationInvalidFormat();
+    }
+
+    /////11-2/////////
+    @Test
+    void shouldTransferCreditApprovedNumberCardEmpty() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getNumberCardEmptyInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationInvalidFormat();
+    }
+
+    /////12-1////////
+    @Test
+    void shouldTransferPayApprovedMonthEmpty() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getMonthEmptyInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationInvalidFormat();
+    }
+
+    /////12-2////////
+    @Test
+    void shouldTransferCreditApprovedMonthEmpty() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getMonthEmptyInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationInvalidFormat();
+    }
+
+    /////13-1////////
+    @Test
+    void shouldTransferPayApprovedNameEmpty() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getNameEmptyInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationObligatoryField();
+    }
+
+    /////13-2////////
+    @Test
+    void shouldTransferCreditApprovedNameEmpty() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getNameEmptyInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationObligatoryField();
+    }
+
+    ///////14-1///////
+    @Test
+    void shouldTransferPayApprovedYearEmpty() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getYearEmptyInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationInvalidFormat();
+    }
+
+    ///////14-2///////
+    @Test
+    void shouldTransferCreditApprovedYearEmpty() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getYearEmptyInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationInvalidFormat();
+    }
+
+    ////////!!!!!15-1////////
+    @Test
+    void shouldTransferPayApprovedCvcEmpty() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getCvcEmptyInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationInvalidFormat();
+    }
+
+    ////////!!!!!15-2////////
+    @Test
+    void shouldTransferCreditApprovedCvcEmpty() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getCvcEmptyInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationInvalidFormat();
+    }
+
+    /////!!!!!!16-баг-1_месяц=00/////////
+    @Test
+    void shouldTransferPayApprovedMonthNull() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getMonthNullInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationInvalidCardExpirationDate();
+    }
+
+    /////!!!!!!16-баг-2_месяц=00/////////
+    @Test
+    void shouldTransferCreditApprovedMonthNull() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getMonthNullInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationInvalidCardExpirationDate();
+    }
+
+    ////////17-1 месяц на кириллице////////
+    @Test
+    void shouldTransferPayApprovedMonthRu() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getMonthRuInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationInvalidFormat();
+    }
+
+    ////////17-2 месяц на кириллице////////
+    @Test
+    void shouldTransferCreditApprovedMonthRu() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getMonthRuInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationInvalidFormat();
+    }
+
+    ////////18-1 год=00/////
+    @Test
+    void shouldTransferPayApprovedYearNull() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getYearNullInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationCardExpiryDate();
+    }
+
+    ////////18-2 год=00/////
+    @Test
+    void shouldTransferCreditApprovedYearNull() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getYearNullInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationCardExpiryDate();
+    }
+
+    ////////19-1 разделители у номера карты/////
+    @Test
+    void shouldTransferPayApprovedNumberCardSeparator() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getNumberCardWithSeparatorInfoCard();
         paymentPage.payWriteInForm(infoCard);
         paymentPage.notificationSuccessfulPay();
     }
+
+    ////////19-1 разделители у номера карты/////
+    @Test
+    void shouldTransferCreditApprovedNumberCardSeparator() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getNumberCardWithSeparatorInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationSuccessfulPay();
+    }
+
+    ////////20-1 месяц не по маске/////
+    @Test
+    void shouldTransferPayApprovedMonthNotMask() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getMonthNotMaskInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationInvalidFormat();
+    }
+
+    ////////20-2 месяц не по маске/////
+    @Test
+    void shouldTransferCreditApprovedMonthNotMask() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getMonthNotMaskInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationInvalidFormat();
+    }
+
+    /////21-1_Год +6лет/////////
+    @Test
+    void shouldTransferPayApprovedYearPlusCurrent() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var paymentPage = mainPage.transferPay();
+        var infoCard = DataHelper.getYearPlusCurrentInfoCard();
+        paymentPage.payWriteInForm(infoCard);
+        paymentPage.notificationInvalidCardExpirationDate();
+        //assertEquals("APPROVED", DataHelperSQL.getPaymentEntityLast().getStatus());
+    }
+
+    /////21-2_Год +6лет/////////
+    @Test
+    void shouldTransferCreditApprovedYearPlusCurrent() {
+        var mainPage = open("http://localhost:8080/", MainPage.class);
+        var creditPage = mainPage.transferCredit();
+        var infoCard = DataHelper.getYearPlusCurrentInfoCard();
+        creditPage.creditWriteInForm(infoCard);
+        creditPage.notificationInvalidCardExpirationDate();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*
@@ -82,7 +495,7 @@ public class TravelTest {
         paymentPage.notificationPay();
     }
 
-    /////2_Валидная оплата по карте DECLINED/////////
+    /////!!!! баг2_Валидная оплата по карте DECLINED/////////
     @Test
     void shouldValidTransferPayDeclined() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -104,7 +517,7 @@ public class TravelTest {
         creditPage.notificationCredit();
     }
 
-    /////4_Валидная оплата с помощью кредита Declined/////////
+    /////!!!! баг4_Валидная оплата с помощью кредита Declined/////////
     @Test
     void shouldValidTransferCreditDeclined() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
