@@ -11,29 +11,36 @@
 
 ### Процент успешных и не успешных тест-кейсов
 
-![](../../../../../var/folders/b3/2g3bky_523qglwc8lpj_l_7c0000gn/T/TemporaryItems/(Документ сохраняется приложением «screencaptureui»)/Снимок экрана 2023-02-10 в 19.44.05.png)
+![](/Users/viktoriamasalyka/Desktop/Снимок экрана 2023-02-10 в 20.22.59.png)
+
 Passed: 31 автотест (81.57%)
 
 Failed: 6 атотестов (15.78%)
 
 Broken: 1 автотест (2.63%) 
 
-Детализация
-![](../../../../../var/folders/b3/2g3bky_523qglwc8lpj_l_7c0000gn/T/TemporaryItems/(Документ сохраняется приложением «screencaptureui» 2)/Снимок экрана 2023-02-10 в 19.45.05.png)
+_Детализация_
+
+![](/Users/viktoriamasalyka/Desktop/Снимок экрана 2023-02-10 в 20.24.13.png)
 
 При тестировании веб-сервиса автотест на успешную покупку тура с помощью кредита по карте Approved периодически падает. Падение происходит из-за задержки поступления данных в базу данных. Записи появляются с опозданием, при этом первая итерация запуска тестов приводит к более быстрой записи данных, нежели повторный запуск. В последнем случае данные могут подтягиваться в базу спустя долгое время. Попытки увеличить время задержки в коде или модифицирование настроек памяти в docker не приводят к успешному результату. 
 
 
 Процентное соотношение по градации серьезности:
-![](../../../../../var/folders/b3/2g3bky_523qglwc8lpj_l_7c0000gn/T/TemporaryItems/(Документ сохраняется приложением «screencaptureui» 3)/Снимок экрана 2023-02-10 в 19.45.20.png)
+![](/Users/viktoriamasalyka/Desktop/Снимок экрана 2023-02-10 в 20.24.48.png)
 
-![](../../../../../var/folders/b3/2g3bky_523qglwc8lpj_l_7c0000gn/T/TemporaryItems/(Документ сохраняется приложением «screencaptureui» 4)/Снимок экрана 2023-02-10 в 19.45.39.png)
+![](/Users/viktoriamasalyka/Desktop/Снимок экрана 2023-02-10 в 20.24.56.png)
 
 
 ### Общие ркомендации
 Необходима доработка по открытым issues:
-1. https://github.com/Viktorinaaa/Diplom/issues/5#issue-1575636660
-2. https://github.com/Viktorinaaa/Diplom/issues/4#issue-1575620632
-3. https://github.com/Viktorinaaa/Diplom/issues/3#issue-1575609060
-4. https://github.com/Viktorinaaa/Diplom/issues/2#issue-1574911466
-5. https://github.com/Viktorinaaa/Diplom/issues/1#issue-1574795398
+
+- [Issue 1](https://github.com/Viktorinaaa/Diplom/issues/5#issue-1575636660)
+
+- [Issue 2](https://github.com/Viktorinaaa/Diplom/issues/4#issue-1575620632)
+
+- [Issue 3](https://github.com/Viktorinaaa/Diplom/issues/3#issue-1575609060)
+
+- [Issue 4](https://github.com/Viktorinaaa/Diplom/issues/2#issue-1574911466)
+
+- [Issue 5](https://github.com/Viktorinaaa/Diplom/issues/1#issue-1574795398)
