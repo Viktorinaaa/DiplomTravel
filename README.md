@@ -55,8 +55,8 @@
 
 [План автоматизации тестирования сервиса](https://github.com/Viktorinaaa/Diplom/blob/aae8992c771f9ccf7d490a764526cde13125e122/docs/Plan.md)
 
-[Отчётные документы по итогам тестирования]()
+[Отчётные документы по итогам тестирования](https://github.com/Viktorinaaa/Diplom/blob/master/docs/Report.md)
 
-[Отчётные документы по итогам автоматизации]()
+[Отчётные документы по итогам автоматизации](https://github.com/Viktorinaaa/Diplom/blob/master/docs/Summary.md)
 
 
