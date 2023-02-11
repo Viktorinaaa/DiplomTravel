@@ -25,14 +25,12 @@ public class PaymentPage {
     private SelenideElement notificationTitle = $(".notification_status_ok");
     private SelenideElement notificationTitleError = $(".notification_status_error");
 
-
     private SelenideElement notificationCardExpiryDate = $x("//*[text()='Истёк срок действия карты']");
     private SelenideElement notificationObligatoryField = $x("//*[text()='Поле обязательно для заполнения']");
     private SelenideElement notificationInvalidCardExpirationDate = $x("//*[text()='Неверно указан срок действия карты']");
     private SelenideElement notificationInvalidFormat = $x("//*[text()='Неверный формат']");
 
 
-    //////видимость объектов/////////////
     public PaymentPage() {
         heading.shouldBe(visible);
         numberCard.shouldBe(visible);
@@ -43,7 +41,6 @@ public class PaymentPage {
         buttonContinuePay.shouldBe(visible);
     }
 
-    ///Запись в форму///
     public void payWriteInForm(DataHelper.InfoCard infoCard) {
         numberCard.setValue(infoCard.getNumberCard());
         month.setValue(infoCard.getMonth());

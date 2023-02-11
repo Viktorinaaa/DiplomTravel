@@ -18,13 +18,11 @@ public class MainPage {
         buttonCredit.shouldBe(visible);
     }
 
-    /////По карте////////////////
     public PaymentPage transferPay() {
         buttonPay.click();
         return new PaymentPage();
     }
 
-    //////Кредит/////////
     public CreditPage transferCredit() {
         buttonCredit.click();
         return new CreditPage();

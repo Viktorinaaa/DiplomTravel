@@ -74,11 +74,6 @@ public class DataHelper {
     public static String getCvcEmpty() {
         return null;
     }
-    /*
-    public static InfoCard getEmpty() {
-        return new InfoCard(null, null, null, null, null);
-    }
-    */
 
 
     public static String getYearInvalidMinusCurrent() {
@@ -137,7 +132,6 @@ public class DataHelper {
         }
         return String.valueOf(monthNotMask);
     }
-
 
     /////валидные данные////
     public static InfoCard getValidInfoCard() {

@@ -37,7 +37,6 @@ public class CreditPage {
         buttonContinuePay.shouldBe(visible);
     }
 
-    ///Запись в форму///
     public void creditWriteInForm(DataHelper.InfoCard infoCard) {
         numberCard.setValue(infoCard.getNumberCard());
         month.setValue(infoCard.getMonth());
@@ -47,7 +46,6 @@ public class CreditPage {
         buttonContinuePay.click();
         buttonContinuePay.should(appear, Duration.ofSeconds(10));
     }
-
 
     public void notificationSuccessfulPay() {
         notificationTitle.shouldHave(text("Успешно\n" +

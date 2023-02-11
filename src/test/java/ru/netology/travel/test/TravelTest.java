@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TravelTest {
 
 
-
     @BeforeAll
     static void setupAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
@@ -51,7 +50,7 @@ public class TravelTest {
     }
 
 
-    /////1_Валидная оплата по карте Approved/////////
+    /////1/////////
     @Test
     void shouldValidTransferPayApproved() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -62,7 +61,7 @@ public class TravelTest {
         assertEquals("APPROVED", DataHelperSQL.getPaymentEntityLast().getStatus());
     }
 
-    /////!!!! баг2_оплата по карте DECLINED/////////
+    /////2/////////
     @Test
     void shouldValidTransferPayDeclined() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -73,7 +72,7 @@ public class TravelTest {
         assertEquals("DECLINED", DataHelperSQL.getPaymentEntityLast().getStatus());
     }
 
-    //////3_Валидная оплата с помощью кредита Approved/////////
+    //////3/////////
     @Test
     void shouldValidTransferCreditApproved() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -84,7 +83,7 @@ public class TravelTest {
         assertEquals("APPROVED", DataHelperSQL.getCreditRequestEntityLast().getStatus());
     }
 
-    /////!!!! баг4_Валидная оплата с помощью кредита Declined/////////
+    /////4/////////
     @Test
     void shouldValidTransferCreditDeclined() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -92,10 +91,9 @@ public class TravelTest {
         var infoCard = DataHelper.getDeclinedInfoCard();
         creditPage.creditWriteInForm(infoCard);
         creditPage.notificationErrorPay();
-        //assertEquals("DECLINED", DataHelperSQL.getPaymentEntityLast().getStatus());
     }
 
-    /////5-1_Пустая отправка данных по карте/////////
+    /////5-1/////////
     @Test
     void shouldTransferPayApprovedEmpty() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -104,11 +102,9 @@ public class TravelTest {
         paymentPage.payWriteInForm(infoCard);
         paymentPage.notificationInvalidFormat();
         paymentPage.notificationObligatoryField();
-
-        //assertEquals("APPROVED", DataHelperSQL.getPaymentEntityLast().getStatus());
     }
 
-    /////5-2_Пустая отправка данных по карте/////////
+    /////5-2/////////
     @Test
     void shouldTransferCreditApprovedEmpty() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -117,10 +113,9 @@ public class TravelTest {
         creditPage.creditWriteInForm(infoCard);
         creditPage.notificationInvalidFormat();
         creditPage.notificationObligatoryField();
-        //assertEquals("DECLINED", DataHelperSQL.getPaymentEntityLast().getStatus());
     }
 
-    /////6-1_Истек срок действия карты/////////
+    /////6-1/////////
     @Test
     void shouldTransferPayApprovedYearInvalid() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -128,10 +123,9 @@ public class TravelTest {
         var infoCard = DataHelper.getYearMinusCurrentInfoCard();
         paymentPage.payWriteInForm(infoCard);
         paymentPage.notificationCardExpiryDate();
-        //assertEquals("APPROVED", DataHelperSQL.getPaymentEntityLast().getStatus());
     }
 
-    /////6-2_Истек срок действия карты/////////
+    /////6-2/////////
     @Test
     void shouldTransferCreditApprovedYearMinusCurrent() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -139,10 +133,9 @@ public class TravelTest {
         var infoCard = DataHelper.getYearMinusCurrentInfoCard();
         creditPage.creditWriteInForm(infoCard);
         creditPage.notificationCardExpiryDate();
-        //assertEquals("APPROVED", DataHelperSQL.getCreditRequestEntityLast().getStatus());
     }
 
-    /////!!!7-1-баг_Невалидный владелец/////////
+    /////7-1/////////
     @Test
     void shouldTransferPayApprovedNameInvalid() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -151,7 +144,8 @@ public class TravelTest {
         paymentPage.payWriteInForm(infoCard);
         paymentPage.notificationObligatoryField();
     }
-    /////!!!7-2-баг_Невалидный владелец/////////
+
+    /////7-2/////////
     @Test
     void shouldTransferCreditApprovedNameInvalid() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -161,7 +155,7 @@ public class TravelTest {
         creditPage.notificationObligatoryField();
     }
 
-    /////8-1_Невалидное значение месяца/////////
+    /////8-1/////////
     @Test
     void shouldTransferPayApprovedMonthInvalid() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -169,9 +163,9 @@ public class TravelTest {
         var infoCard = DataHelper.getMonthInvalidInfoCard();
         paymentPage.payWriteInForm(infoCard);
         paymentPage.notificationInvalidCardExpirationDate();
-        //assertEquals("APPROVED", DataHelperSQL.getPaymentEntityLast().getStatus());
     }
-    /////8-2_Невалидное значение месяца/////////
+
+    /////8-2/////////
     @Test
     void shouldTransferCreditApprovedMonthInvalid() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -181,7 +175,7 @@ public class TravelTest {
         creditPage.notificationInvalidCardExpirationDate();
     }
 
-    /////9-1_Номер карты не по маске/////////
+    /////9-1/////////
     @Test
     void shouldTransferPayApprovedNumberCardNotMask() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -191,7 +185,7 @@ public class TravelTest {
         paymentPage.notificationInvalidFormat();
     }
 
-    /////9-2_Номер карты не по маске/////////
+    /////9-2/////////
     @Test
     void shouldTransferCreditApprovedNumberCardNotMask() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -201,7 +195,7 @@ public class TravelTest {
         creditPage.notificationInvalidFormat();
     }
 
-    /////10-1_CVC не по маске/////////
+    /////10-1/////////
     @Test
     void shouldTransferPayApprovedCvcNotMask() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -211,7 +205,7 @@ public class TravelTest {
         paymentPage.notificationInvalidFormat();
     }
 
-    /////10-2_CVC не по маске/////////
+    /////10-2/////////
     @Test
     void shouldTransferCreditApprovedCvcNotMask() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -301,7 +295,7 @@ public class TravelTest {
         creditPage.notificationInvalidFormat();
     }
 
-    ////////!!!!!15-1////////
+    ////////15-1////////
     @Test
     void shouldTransferPayApprovedCvcEmpty() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -311,7 +305,7 @@ public class TravelTest {
         paymentPage.notificationInvalidFormat();
     }
 
-    ////////!!!!!15-2////////
+    ////////15-2////////
     @Test
     void shouldTransferCreditApprovedCvcEmpty() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -321,7 +315,7 @@ public class TravelTest {
         creditPage.notificationInvalidFormat();
     }
 
-    /////!!!!!!16-баг-1_месяц=00/////////
+    /////16-1/////////
     @Test
     void shouldTransferPayApprovedMonthNull() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -331,7 +325,7 @@ public class TravelTest {
         paymentPage.notificationInvalidCardExpirationDate();
     }
 
-    /////!!!!!!16-баг-2_месяц=00/////////
+    /////16-2/////////
     @Test
     void shouldTransferCreditApprovedMonthNull() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -341,7 +335,7 @@ public class TravelTest {
         creditPage.notificationInvalidCardExpirationDate();
     }
 
-    ////////17-1 месяц на кириллице////////
+    ////////17-1////////
     @Test
     void shouldTransferPayApprovedMonthRu() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -351,7 +345,7 @@ public class TravelTest {
         paymentPage.notificationInvalidFormat();
     }
 
-    ////////17-2 месяц на кириллице////////
+    ////////17-2////////
     @Test
     void shouldTransferCreditApprovedMonthRu() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -361,7 +355,7 @@ public class TravelTest {
         creditPage.notificationInvalidFormat();
     }
 
-    ////////18-1 год=00/////
+    ////////18-1/////
     @Test
     void shouldTransferPayApprovedYearNull() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -371,7 +365,7 @@ public class TravelTest {
         paymentPage.notificationCardExpiryDate();
     }
 
-    ////////18-2 год=00/////
+    ////////18-2/////
     @Test
     void shouldTransferCreditApprovedYearNull() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -381,7 +375,7 @@ public class TravelTest {
         creditPage.notificationCardExpiryDate();
     }
 
-    ////////19-1 разделители у номера карты/////
+    ////////19-1/////
     @Test
     void shouldTransferPayApprovedNumberCardSeparator() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -391,7 +385,7 @@ public class TravelTest {
         paymentPage.notificationSuccessfulPay();
     }
 
-    ////////19-1 разделители у номера карты/////
+    ////////19-2/////
     @Test
     void shouldTransferCreditApprovedNumberCardSeparator() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -401,7 +395,7 @@ public class TravelTest {
         creditPage.notificationSuccessfulPay();
     }
 
-    ////////20-1 месяц не по маске/////
+    ////////20-1/////
     @Test
     void shouldTransferPayApprovedMonthNotMask() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -411,7 +405,7 @@ public class TravelTest {
         paymentPage.notificationInvalidFormat();
     }
 
-    ////////20-2 месяц не по маске/////
+    ////////20-2/////
     @Test
     void shouldTransferCreditApprovedMonthNotMask() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -421,7 +415,7 @@ public class TravelTest {
         creditPage.notificationInvalidFormat();
     }
 
-    /////21-1_Год +6лет/////////
+    /////21-1/////////
     @Test
     void shouldTransferPayApprovedYearPlusCurrent() {
         var mainPage = open("http://localhost:8080/", MainPage.class);
@@ -432,7 +426,7 @@ public class TravelTest {
         //assertEquals("APPROVED", DataHelperSQL.getPaymentEntityLast().getStatus());
     }
 
-    /////21-2_Год +6лет/////////
+    /////21-2/////////
     @Test
     void shouldTransferCreditApprovedYearPlusCurrent() {
         var mainPage = open("http://localhost:8080/", MainPage.class);

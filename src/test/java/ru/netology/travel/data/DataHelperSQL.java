@@ -18,7 +18,6 @@ public class DataHelperSQL {
     private DataHelperSQL() {
     }
 
-    ////ИСПОЛНИТЕЛЬ ЗАПРОСОВ///////
     private static QueryRunner runner = new QueryRunner();
 
 
@@ -31,8 +30,6 @@ public class DataHelperSQL {
         return conn;
     }
 
-
-    /////ПОЛУЧЕНИЕ ПОСЛЕДНЕЙ ЗАПИСИ В OrderEntity///////////
     @SneakyThrows
     public static OrderEntity getOrderEntityLast() {
         var lastOrderEntitySQL = "SELECT * FROM order_entity ORDER BY created DESC LIMIT 1;";
@@ -43,7 +40,6 @@ public class DataHelperSQL {
         }
     }
 
-    /////ПОЛУЧЕНИЕ ПОСЛЕДНЕЙ ЗАПИСИ В PaymentEntity///////////
     @SneakyThrows
     public static PaymentEntity getPaymentEntityLast() {
         var lastPaymentEntitySQL = "SELECT * FROM payment_entity ORDER BY created DESC LIMIT 1;";
@@ -54,8 +50,6 @@ public class DataHelperSQL {
         }
     }
 
-
-    /////ПОЛУЧЕНИЕ ПОСЛЕДНЕЙ ЗАПИСИ В CreditRequestEntity///////////
     @SneakyThrows
     public static CreditRequestEntity getCreditRequestEntityLast() {
         var lastCreditEntitySQL = "SELECT * FROM credit_request_entity ORDER BY created DESC LIMIT 1;";
