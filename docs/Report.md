@@ -11,7 +11,7 @@
 
 ### Процент успешных и не успешных тест-кейсов
 
-![image](./filesImage/Снимок экрана 2023-02-10 в 20.22.59.png)
+![](filesImage/Screen1.png)
 
 **Passed**: 31 автотест (81.57%)
 
@@ -21,7 +21,7 @@
 
 _Детализация_
 
-![image](/Users/viktoriamasalyka/IdeaProjects/Diplom/filesImage/Снимок экрана 2023-02-10 в 20.24.13.png)
+![](filesImage/Screen2.png)
 
 
 При тестировании веб-сервиса автотест на успешную покупку тура с помощью кредита по карте Approved периодически падает. 
@@ -33,9 +33,9 @@ _Детализация_
 
 Процентное соотношение по градации серьезности:
 
-![image](/Users/viktoriamasalyka/IdeaProjects/Diplom/filesImage/Снимок экрана 2023-02-10 в 20.24.48.png)
+![](filesImage/Screen3.png)
 
-![image](/Users/viktoriamasalyka/IdeaProjects/Diplom/filesImage/Снимок экрана 2023-02-10 в 20.24.56.png)
+![](filesImage/Screen4.png)
 
 ### Общие ркомендации
 Необходима доработка по открытым issues:
