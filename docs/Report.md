@@ -21,7 +21,9 @@
 
 _Детализация_
 
-![](Diplom/filesImage/Screen2.png)
+<img src="filesImage/Screen2.png"/>
+
+![](filesImage/Screen2.png)
 
 
 При тестировании веб-сервиса автотест на успешную покупку тура с помощью кредита по карте Approved периодически падает. 
@@ -33,7 +35,7 @@ _Детализация_
 
 Процентное соотношение по градации серьезности:
 
-![](Diplom/filesImage/Screen3.png)
+![](filesImage/Screen3.png)
 
 ![](filesImage/Screen4.png)
 
