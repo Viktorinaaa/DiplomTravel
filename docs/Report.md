@@ -11,7 +11,7 @@
 
 ### Процент успешных и не успешных тест-кейсов
 
-![](filesImage/Screen1.png)
+![image](filesImage/Screen1.png)
 
 **Passed**: 31 автотест (81.57%)
 
@@ -21,9 +21,7 @@
 
 _Детализация_
 
-<img src="filesImage/Screen2.png"/>
-
-![](filesImage/Screen2.png)
+![](/filesImage/Screen2.png)
 
 
 При тестировании веб-сервиса автотест на успешную покупку тура с помощью кредита по карте Approved периодически падает. 
@@ -35,7 +33,7 @@ _Детализация_
 
 Процентное соотношение по градации серьезности:
 
-![](filesImage/Screen3.png)
+![image](/filesImage/Screen3.png)
 
 ![](filesImage/Screen4.png)
 
