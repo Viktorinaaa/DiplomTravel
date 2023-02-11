@@ -45,6 +45,11 @@
 
    `./gradlew clean test "-Ddb.url=jdbc:postgresql://localhost:5432/app"`
 
+#### Отчетность
+В проект интегрирована система отчетов Allure. Запуск отчета в терминале:
+
+   `./gradlew allureserve`
+
 
 #### Документация
 
