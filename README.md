@@ -50,7 +50,6 @@
 
    `./gradlew allureserve`
 
-
 #### Документация
 
 [План автоматизации тестирования сервиса](https://github.com/Viktorinaaa/Diplom/blob/aae8992c771f9ccf7d490a764526cde13125e122/docs/Plan.md)

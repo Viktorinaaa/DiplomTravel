@@ -21,10 +21,8 @@ public class PaymentPage {
     private SelenideElement year = $x("//*[text()='Год']/following-sibling::span/input");
     private SelenideElement cvc = $x("//*[@maxlength='3']");
     private SelenideElement buttonContinuePay = $("fieldset button");
-
     private SelenideElement notificationTitle = $(".notification_status_ok");
     private SelenideElement notificationTitleError = $(".notification_status_error");
-
     private SelenideElement notificationCardExpiryDate = $x("//*[text()='Истёк срок действия карты']");
     private SelenideElement notificationObligatoryField = $x("//*[text()='Поле обязательно для заполнения']");
     private SelenideElement notificationInvalidCardExpirationDate = $x("//*[text()='Неверно указан срок действия карты']");

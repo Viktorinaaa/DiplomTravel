@@ -1,5 +1,4 @@
 package ru.netology.travel.data.TablesSQL;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -54,7 +54,6 @@ public class DataHelper {
         return fakerInt.number().digits(3);
     }
 
-
     public static String getNumberCardEmpty() {
         return null;
     }

@@ -20,7 +20,6 @@ public class DataHelperSQL {
 
     private static QueryRunner runner = new QueryRunner();
 
-
     @SneakyThrows
     public static Connection getConnection() {
         var url = System.getProperty("db.url");

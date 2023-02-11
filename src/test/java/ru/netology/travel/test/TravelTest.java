@@ -14,12 +14,10 @@ import ru.netology.travel.page.CreditPage;
 import ru.netology.travel.data.DataHelperSQL;
 import ru.netology.travel.data.TablesSQL.OrderEntity;
 import ru.netology.travel.page.MainPage;
-
 import java.sql.DriverManager;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
